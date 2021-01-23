@@ -1,3 +1,20 @@
+/*
+String class
+Strings are objects that represent sequences of characters.
+
+The standard string class provides support for such objects with an interface similar to that of a standard container of bytes, but adding features specifically designed to operate with strings of single-byte characters.
+
+The string class is an instantiation of the basic_string class template that uses char (i.e., bytes) as its character type, with its default char_traits and allocator types (see basic_string for more info on the template).
+
+Note that this class handles bytes independently of the encoding used: If used to handle sequences of multi-byte or variable-length characters (such as UTF-8), all members of this class (such as length or size), as well as its iterators, will still operate in terms of bytes (not actual encoded characters).
+
+1. incoding ¹æ½Ä¿¡ µû¶ó¼­ ¹®ÀÚ¸¦ Àß¸øÀĞÀ» ¼ö ÀÖ´Ù. (´Ü inputÀº ±¦Âú°í, ÆÄÀÏ ÀÚÃ¼ÀÇ ÀÎÄÚµù ¹®Á¦ÀÌ¹Ç·Î const stringÀÇ ¹®Á¦)
+2. stringÀÇ ¸ğµç ÇÔ¼ö´Â charÀÇ ¿¬ÀåÀÌ¹Ç·Î multi-byteÀÇ °æ¿ì length, at µî ´Ù¾çÇÑ ÇÔ¼ö¿¡¼­ ¿À·ù°¡ ³¯ ¼ö ÀÖ´Ù.
+  // ¿¹¸¦ µé¾î lengthÀÇ °æ¿ì multi-byteÀÇ Æ¯¼º »ó ÇÑ ÇÑ±Û´ç 2·Î ÀÎ½ÄµÊ
+  // at()À» ÅëÇÑ Á¢±Ùµµ ÇÏ³ª¸¸ ÇÏ¸é ¿À·ù°¡³ª°í µÎ°³¸¦ ÇÏ³ªÀÇ ±ÛÀÚ·Î ÀÎ½ÄÇÏ°í ÇÔ²² ºÙ¿©Áà¾ßÇÑ´Ù. (ÇÒ´çµµ ¸¶Âù°¡Áö)
+
+*/
+
 #include<iostream>
 #include<string>
 
@@ -5,7 +22,17 @@ using namespace std;
 
 int main ()
 {
-    string str;
-    str = "ê°•í•œì¹œêµ¬ ëŒ€í•œìœ¡êµ°";
-    cout << str << endl;
+    string str = "¾È³çÇÏ¼¼¿©";
+    cout << str.size() << endl;
+    cout << str.at(0) << str.at(1) << endl;
+    cout << str.at(0) << endl;
+
+    string new_str;
+    new_str += str.at(0);
+    new_str += str.at(1);
+    cout << new_str << endl;
+
+
+
+    return 0;
 }
