@@ -23,6 +23,19 @@ typedef unsigned int ui;
 void solution()
 {
     // code
+    int N;
+    cin >> N;
+    vector<int> input_v;
+    for(int i=0; i<N; i++)
+    {
+        int tmp;
+        cin >> tmp;
+        input_v.push_back(tmp);
+    }
+    sort(input_v.begin(), input_v.end(),less<int>());
+    input_v.erase(unique(input_v.begin(),input_v.end()),input_v.end());
+    for(int i=0; i<input_v.size(); i++)
+        cout << input_v[i] << " ";
 }
 
 int main ()

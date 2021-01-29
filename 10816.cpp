@@ -20,43 +20,37 @@ typedef long long int lld;
 typedef unsigned long long int uld;
 typedef unsigned int ui;
 
-
-bool my_compare(const string &a, const string &b)
-{
-    if(a.length() != b.length())
-        return a.length() < b.length();
-    else
-    {
-        if(a.compare(b) < 0)
-            return 1;
-        else
-            return 0;
-    }
-}
-
 void solution()
 {
+    unordered_map<int,int> input_map;
     // code
-    vector<string> str_v;
-    int n;
-    cin >> n;
-    for(int i=0; i<n; i++)
+    int n_1;
+    cin >>n_1;
+    for(int i=0; i<n_1; i++)
     {
-        string tmp;
+        int tmp;
         cin >> tmp;
-        str_v.push_back(tmp);
+        if(input_map.find(tmp) == input_map.end())
+            input_map.insert(make_pair(tmp,1));
+        else
+            (input_map.find(tmp)->second)++; 
     }
-
-    sort(str_v.begin(), str_v.end(),my_compare);
-    str_v.erase(unique(str_v.begin(),str_v.end()), str_v.end());
-    string cmp_str;
-    for(int i=0; i<str_v.size(); i++)
+    int n_2;
+    cin >> n_2;
+    vector<int> idx_v;
+    for(int i=0; i<n_2; i++)
     {
-        if(i == 0 || cmp_str.compare(str_v[i]) != 0)
-        {
-            cout << str_v[i] << "\n";
-            cmp_str = str_v[i];
-        }
+        int tmp;
+        cin >> tmp;
+        idx_v.push_back(tmp);
+    }
+    for(int i=0;i<idx_v.size(); i++)
+    {
+        unordered_map<int,int>::iterator now_it = input_map.find(idx_v[i]);
+        if(now_it == input_map.end())
+            cout << "0 ";
+        else
+            cout << now_it->second << " ";
     }
 
 }
