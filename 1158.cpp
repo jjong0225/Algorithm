@@ -25,6 +25,36 @@ const int MY_INT_MAX = 2000000000;
 void solution()
 {
     // code
+    int n, k;
+    cin >> n >> k;
+    queue<int> q;
+    for(int i=1; i<=n; i++)
+    {
+        q.push(i);
+    }
+    vector<int> output_v;
+    int counter = 0;
+    while(!q.empty())
+    {
+        counter++;
+        int now_int = q.front();
+        q.pop();
+        if(counter == k)
+        {
+            output_v.push_back(now_int);
+            counter = 0;
+        }
+        else
+            q.push(now_int);
+    }
+    cout << "<";
+    for(int i=0; i<output_v.size(); i++)
+    {
+        cout << output_v[i];
+        if(i != output_v.size()-1)
+            cout << ", ";
+    }
+    cout << ">";
 }
 
 int main ()

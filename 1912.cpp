@@ -21,10 +21,33 @@ typedef unsigned long long int uld;
 typedef unsigned int ui;
 
 const int MY_INT_MAX = 2000000000;
+const int MY_INT_MIN = -2000000000;
 
 void solution()
 {
     // code
+    int n;
+    cin >> n;
+    vector<int> input_v;
+    vector<int> dp;
+    for(int i=0; i<n; i++)
+    {
+        int tmp;
+        cin >> tmp;
+        input_v.push_back(tmp);
+        dp.push_back(MY_INT_MIN);
+    }
+    dp[0] = input_v[0];
+    for(int i=1; i<n; i++)
+    {
+        dp[i] = max(dp[i-1] + input_v[i], input_v[i]);
+    }
+    int output = MY_INT_MIN;
+    for(int i=0; i<n; i++)
+    {
+        output = max(dp[i],output);
+    }
+    cout << output;
 }
 
 int main ()
