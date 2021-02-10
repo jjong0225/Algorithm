@@ -24,6 +24,9 @@ const int MY_INT_MAX = 2000000000;
 
 void solution()
 {
+    vector<int> v;
+    v.push_back(10);  // 정적 vs 동적 
+    cout << v[10];
     // code
     string input_str;
     cin >> input_str;
