@@ -2,7 +2,6 @@
 #include<iostream>
 #include<string.h>
 #include<string>
-#include<list>
 #include<vector>
 #include<stack>
 #include<queue> // priority_queue 포함
@@ -26,6 +25,24 @@ const int MY_INT_MAX = 2000000000;
 void solution()
 {
     // code
+    int n;
+	cin >> n;
+	for(int i=0; i<n; i++)
+	{
+		lld a,b,c,d,output = 0;
+		cin >> a >> b;
+        c = a / 5;
+        d = b / 7;
+        if(c <= d)
+            cout << c << "\n";
+        else // c > d
+        {
+            a = a - d*5;
+            b = b - d*7;
+            a = a + b;
+            cout << d + a/12 << "\n";
+        }
+	}
 }
 
 int main ()
