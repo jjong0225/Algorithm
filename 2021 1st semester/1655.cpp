@@ -59,7 +59,6 @@ void solution()
         }
         cout << mid << "\n";
     }
-
 }
 
 int main ()
