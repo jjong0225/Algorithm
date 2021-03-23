@@ -33,13 +33,6 @@ double get_dist(int l_idx, int r_idx)
     return sqrt(tmp_d);
 }
 
-struct my_cmp
-{
-    bool operator()(pair<int,double> lp, pair<int,double>rp)
-    {
-        return lp.second < rp.second;
-    }
-};
 
 bool is_possible(int mid)
 {
