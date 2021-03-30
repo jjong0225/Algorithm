@@ -53,7 +53,7 @@ void read_ASCII_codes_data(unsigned char *input_byte, int n) // using btod_1byte
         if(tmp_c >= 0 && tmp_c <= 127)
             printf("%c\t", tmp_c);
         else
-            printf(".\t", tmp_c);
+            printf(".\t");
     }
     printf("\n");
 }
