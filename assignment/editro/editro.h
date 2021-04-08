@@ -23,26 +23,44 @@ bool is_elf(Elf64_Ehdr eh)
 		return false;
 }
 
-void replace_string(char *original_text)
+
+void replace_string(char *original_file, char *new_file)
 {
-	int fd = fd = open(original_text, O_RDONLY|O_SYNC);
+	int original_fd = open(original_file, O_RDONLY|O_SYNC);
+	int new_fd = open(new_file, O_WRONLY|O_CREAT|O_TRUNC);
 
 	char *original_str = "software";
 	char *new_str = "hackers!";
 	int original_str_len = 8;
+	int new_str_len = 8;
 
 	char input_buffer[10000] = {0};
-	int input_len = read(fd, input_buffer, 10000-1);
-
 	char output_buffer[10000] = {0};
+	char tmp_buffer[10000] = {0};
+	int input_len = read(original_fd, input_buffer, 10000-1);
 
-	for(int i=0; i<input_len; i++)
+	int output_idx = 0;
+	int input_idx = 0;
+	int tmp_idx = 0;
+
+	for(; input_idx<input_len; input_idx++)
 	{
-		if(!strcmp(&input_buffer[i], original_str))
+		tmp_buffer[tmp_idx++] = input_buffer[input_idx];
+		if(input_buffer[input_idx] == ' ' || input_buffer[input_idx] == '\n' || input_buffer[input_idx] == EOF)
 		{
-
+			if(!strcmp(tmp_buffer, original_str))
+				strcpy(&output_buffer[output_idx], new_str);
+			else
+				strcpy(&output_buffer[output_idx], tmp_buffer);
+			output_idx = output_idx + tmp_idx;
+			tmp_idx = 0;
+			memset(tmp_buffer, 0, 10000-1);
 		}
 	}
+
+	write(new_fd, output_buffer, 10000-1);
+	close(original_fd);
+	close(new_fd);
 }
 
 void read_elf_header(int32_t fd, Elf64_Ehdr *elf_header)

@@ -23,15 +23,6 @@ int32_t main(int32_t argc, char *argv[])
     if(!is_elf(ehdr)) {
 		return 0;
 	}
-	char dump_command[100] = "objcopy --dump-section .rodata=original_rodata" // 46부터 파일 이름 넣기
-	for(int i=0; argv[1][i] != 0; i++)
-	{
-		dump_commnad[45 + i] = argv[1][i];
-		dump_commnad[45 + i + 1] = 0;
-	}
-	system(dump_command);
-	replace_string("original_rodata");
-	system("objcopy --dump-section .rodata=original_rodata test");
 	
 	print_elf_header(ehdr);
 
@@ -40,6 +31,24 @@ int32_t main(int32_t argc, char *argv[])
 		printf("Failed to allocate %d bytes\n", (ehdr.e_shentsize * ehdr.e_shnum));
 	}
 	print_section_headers(fd, ehdr, sh_tbl);
+
+	char dump_command[100] = "objcopy --dump-section .rodata=original_rodata " // 47부터 파일 이름 넣기
+	for(int i=0; argv[1][i] != 0; i++)
+	{
+		dump_commnad[47 + i] = argv[1][i];
+		dump_commnad[47 + i + 1] = 0;
+	}
+	char update_command[100] = "objcopy --update-section .rodata=new_rodata " // 44부터 파일 이름 넣기
+	for(int i=0; argv[1][i] != 0; i++)
+	{
+		update_command[44 + i] = argv[1][i];
+		update_command[44 + i + 1] = 0;
+	}
+
+	system(dump_command);
+	replace_string("original_rodata", "new_rodata");
+	system(update_command);
+
 
 	return 0;
 
