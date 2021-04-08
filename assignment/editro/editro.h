@@ -27,7 +27,7 @@ bool is_elf(Elf64_Ehdr eh)
 void replace_string(char *original_file, char *new_file)
 {
 	int original_fd = open(original_file, O_RDONLY|O_SYNC);
-	int new_fd = open(new_file, O_WRONLY|O_CREAT|O_TRUNC);
+	int new_fd = open(new_file, O_RDWR|O_CREAT|O_TRUNC, 0777);
 
 	char *original_str = "software";
 	char *new_str = "hackers!";
@@ -36,29 +36,39 @@ void replace_string(char *original_file, char *new_file)
 
 	char input_buffer[10000] = {0};
 	char output_buffer[10000] = {0};
-	char tmp_buffer[10000] = {0};
 	int input_len = read(original_fd, input_buffer, 10000-1);
 
 	int output_idx = 0;
 	int input_idx = 0;
-	int tmp_idx = 0;
 
-	for(; input_idx<input_len; input_idx++)
+	while(input_idx<input_len)
 	{
-		tmp_buffer[tmp_idx++] = input_buffer[input_idx];
-		if(input_buffer[input_idx] == ' ' || input_buffer[input_idx] == '\n' || input_buffer[input_idx] == EOF)
+		if(input_idx + original_str_len-1 < input_len)
 		{
-			if(!strcmp(tmp_buffer, original_str))
-				strcpy(&output_buffer[output_idx], new_str);
-			else
-				strcpy(&output_buffer[output_idx], tmp_buffer);
-			output_idx = output_idx + tmp_idx;
-			tmp_idx = 0;
-			memset(tmp_buffer, 0, 10000-1);
+			bool cmp_flag = true; 
+			for(int i=0; i<original_str_len; i++)
+			{
+				if(input_buffer[input_idx + i] != original_str[i])
+				{
+					cmp_flag = false;
+					break;
+				}
+			}
+			if(cmp_flag == true)
+			{
+				for(int i=0; i<new_str_len; i++)
+				{				
+					output_buffer[output_idx + i] = new_str[i];
+				}
+				output_idx = output_idx + new_str_len;
+				input_idx = input_idx + original_str_len;
+				continue;
+			}
 		}
+		output_buffer[output_idx++] = input_buffer[input_idx++];
 	}
 
-	write(new_fd, output_buffer, 10000-1);
+	write(new_fd, output_buffer, output_idx);
 	close(original_fd);
 	close(new_fd);
 }
