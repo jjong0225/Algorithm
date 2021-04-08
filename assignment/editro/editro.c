@@ -20,9 +20,18 @@ int32_t main(int32_t argc, char *argv[])
 	
 	read_elf_header(fd, &ehdr);
 	
-    if(!is_elf( ?? )) {
+    if(!is_elf(ehdr)) {
 		return 0;
 	}
+	char dump_command[100] = "objcopy --dump-section .rodata=original_rodata" // 46부터 파일 이름 넣기
+	for(int i=0; argv[1][i] != 0; i++)
+	{
+		dump_commnad[45 + i] = argv[1][i];
+		dump_commnad[45 + i + 1] = 0;
+	}
+	system(dump_command);
+	replace_string("original_rodata");
+	system("objcopy --dump-section .rodata=original_rodata test");
 	
 	print_elf_header(ehdr);
 

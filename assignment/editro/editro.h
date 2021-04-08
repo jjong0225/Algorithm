@@ -15,9 +15,34 @@ char *read_section(int32_t fd, Elf64_Shdr sh);
 void print_section_headers(int32_t fd, Elf64_Ehdr eh, Elf64_Shdr sh_table[]);
 
 //Implement this function to check whether an input file is an elf file or not.
-bool is_elf( ?? )
+bool is_elf(Elf64_Ehdr eh)
 {
+	if(eh.e_ident[EI_MAG0] == 0x7F && eh.e_ident[EI_MAG1] == 'E' && eh.e_ident[EI_MAG2] == 'L' && eh.e_ident[EI_MAG3] == 'F')
+		return true;
+	else
+		return false;
+}
 
+void replace_string(char *original_text)
+{
+	int fd = fd = open(original_text, O_RDONLY|O_SYNC);
+
+	char *original_str = "software";
+	char *new_str = "hackers!";
+	int original_str_len = 8;
+
+	char input_buffer[10000] = {0};
+	int input_len = read(fd, input_buffer, 10000-1);
+
+	char output_buffer[10000] = {0};
+
+	for(int i=0; i<input_len; i++)
+	{
+		if(!strcmp(&input_buffer[i], original_str))
+		{
+
+		}
+	}
 }
 
 void read_elf_header(int32_t fd, Elf64_Ehdr *elf_header)
