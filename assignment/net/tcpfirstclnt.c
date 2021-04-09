@@ -6,7 +6,7 @@
 #include <errno.h>
 #include <arpa/inet.h>
 
-void err_proc(int error_code);
+void err_proc();
 
 int main(int argc, char** argv)
 {

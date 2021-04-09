@@ -22,6 +22,7 @@ int main(int argc, char** argv)
 	int clntAddrLen, readLen, strLen;
 	char rBuff[BUFSIZ];
 	pid_t pid;
+	signal(SIGCHLD, sigchld_handler); // set signal hander named "sigchld_handler" to SIGCHLD signal
 
 	if(argc != 2) {
 		printf("Usage: %s [port] \n", argv[0]);
@@ -42,7 +43,6 @@ int main(int argc, char** argv)
 	if(listen(srvSd, 5) < 0)
 		errProc();
 	clntAddrLen = sizeof(clntAddr);
-	signal(SIGCHLD, sigchld_handler);
 	while(1)
 	{
 		clntSd = accept(srvSd, (struct sockaddr *)
