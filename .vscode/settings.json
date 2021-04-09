@@ -47,6 +47,7 @@
         "typeinfo": "cpp",
         "queue": "cpp",
         "stack": "cpp",
-        "20170300#.h": "c"
+        "20170300#.h": "c",
+        "inet.h": "c"
     }
 }
