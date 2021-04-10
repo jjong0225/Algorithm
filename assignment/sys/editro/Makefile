@@ -4,16 +4,16 @@ CFLAGS= -Wall -g -I.
 # Change the name of source code files 
 # student ID #.h (e.g., 2021679.h)
 # student ID #.c (e.g., 2021679.c)
-DEPS = editro.h
-OBJ = editro.o 
+DEPS = 20170300.h
+OBJ = 20170300.o 
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 # Change the name of the output binary file to your student ID #.
-editro: $(OBJ)
+20170300: $(OBJ)
 	gcc -o $@ $^ $(CFLAGS)
 
 clean:
-	rm -rf *.o editro
+	rm -rf *.o 20170300
 
