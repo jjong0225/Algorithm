@@ -10,7 +10,7 @@
 
 void errProc();
 void errPrint();
-void sigchld_handler(int sig)
+void sigchld_handler(int sig) // 시그널 핸들러로 wait()을 실행한다. SIGCHLD 시그널에만 적용되는 핸들러이므로 signal확인 등 별도의 작업을 하지 않았다.
 {
 	wait();
 }
@@ -22,7 +22,7 @@ int main(int argc, char** argv)
 	int clntAddrLen, readLen, strLen;
 	char rBuff[BUFSIZ];
 	pid_t pid;
-	signal(SIGCHLD, sigchld_handler); // set signal hander named "sigchld_handler" to SIGCHLD signal
+	signal(SIGCHLD, sigchld_handler); // SIGCHLD시그널이 들어온다면 앞서 정의한 sigchld_handler를 호출한다.
 
 	if(argc != 2) {
 		printf("Usage: %s [port] \n", argv[0]);
