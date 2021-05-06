@@ -1,4 +1,4 @@
-#include<20170300.h>
+#include"20170300.h"
 
 #ifndef NUM_OF_PROCESS
 #define NUM_OF_PROCESS 5
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
         }
 
         // read character and print it out to the stdout
-        char read_buff[100] = {0};
+        char read_buff[200] = {0};
         if(!my_file_read(readfile_fd, read_buff, 100-1))
         {
             printf("%d : %s\n", getpid(), read_buff);
