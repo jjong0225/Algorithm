@@ -105,7 +105,7 @@ int memory_checker(size_t len, int insert_len)
 {
     if(len + insert_len > BUF_SIZE)
     {
-        printf("There is not enough memory for the data, you can only use %d byte(s)\n", BUF_SIZE-len);
+        printf("There is not enough memory for the data, you can only use %ld byte(s)\n", BUF_SIZE-len);
         return 0;
     }
     return 1;
@@ -213,7 +213,7 @@ int my_dealloc(const void *mem, size_t len, Node **head)
     int node_idx = is_exist(*head, input_name); 
     if(node_idx == -1)
     {
-        printf("no such name");
+        printf("no such name\n");
         return 0;
     }
     else
@@ -223,9 +223,10 @@ int my_dealloc(const void *mem, size_t len, Node **head)
         pop_node(head, node_idx, &start_idx, &node_size);
         printf("start_idx : %d / node_size : %d\n", start_idx, node_size);
         void *tmp_mem = (void *)calloc(BUF_SIZE, 1);
+        char vacant_arr[256] = {0};
         memcpy(tmp_mem, buffer + start_idx + node_size, BUF_SIZE - (start_idx + node_size));
         memcpy(buffer + start_idx, tmp_mem, BUF_SIZE - (start_idx + node_size));
-        memcpy(buffer + BUF_SIZE - node_size, tmp_mem + BUF_SIZE - start_idx, node_size);
+        memcpy(buffer + BUF_SIZE - node_size, vacant_arr, node_size);
         free(tmp_mem);
         return node_size;
     }
