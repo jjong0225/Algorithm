@@ -2,7 +2,6 @@
 #include<unistd.h>
 #include<sys/wait.h>
 #include <fcntl.h>
-
 #define NUM_OF_PROCESS 5
 
 int main(int argc, char *argv[])
