@@ -48,6 +48,9 @@
         "queue": "cpp",
         "stack": "cpp",
         "20170300#.h": "c",
-        "inet.h": "c"
+        "inet.h": "c",
+        "mystdio.h": "c",
+        "fcntl.h": "c",
+        "stdio.h": "c"
     }
 }
