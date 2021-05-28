@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <signal.h>
 
-#define MyBufferSize 1024
+#define MyBufferSize 8192
 #define EOF -1
 
 typedef struct my_file
