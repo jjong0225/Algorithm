@@ -26,6 +26,20 @@ const int MY_INT_MAX = 2000000000;
 void solution()
 {
     // code
+    lld n;
+    cin >> n;
+    lld result = 0;
+    lld now_val = n;
+    while(1)
+    {
+        if(now_val == 0)
+            break;
+        lld num_count = ((n-1) / now_val) + 1;
+        lld next_val = ceil((double)n / num_count) - 1;
+        result += num_count * (now_val - next_val);
+        now_val = next_val;
+    }
+    cout << result;
 }
 
 int main ()
